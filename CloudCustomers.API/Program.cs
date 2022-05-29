@@ -1,5 +1,7 @@
-var builder = WebApplication.CreateBuilder(args);
+using CloudCustomers.API.Services;
 
+var builder = WebApplication.CreateBuilder(args);
+ConfigureSevices(builder.Services);
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -23,3 +25,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+
+void ConfigureSevices(IServiceCollection services)
+{
+    services.AddTransient<IUsersService, UsersService>();
+}
