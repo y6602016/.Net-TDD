@@ -1,6 +1,7 @@
 using CloudCustomers.API.Controllers;
 using CloudCustomers.API.Models;
 using CloudCustomers.API.Services;
+using CloudCustomers.UnitTests.Fixtures;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -22,21 +23,7 @@ public class TestUsersController
         // just "mock" a return result
         mockUserService
             .Setup(service => service.GetAllUsers())
-            .ReturnsAsync(new List<User>() // mock a returned user
-            {
-                new()
-                {
-                    Id = 1,
-                    Name = "Mike",
-                    Address = new Address()
-                    {
-                        Street = "198 Ashland Ave.",
-                        City = "Bloomfield",
-                        ZipCode = "07003"
-                    },
-                    Email = "y6602016@gmail.com"
-                }
-            });
+            .ReturnsAsync(UsersFixture.GetTestUsers());
         
         var sut = new UsersController(mockUserService.Object);
         
@@ -75,21 +62,7 @@ public class TestUsersController
         var mockUsersService = new Mock<IUsersService>();
         mockUsersService
             .Setup(service => service.GetAllUsers())
-            .ReturnsAsync(new List<User>() // mock a returned user
-            {
-                new()
-                {
-                    Id = 1,
-                    Name = "Mike",
-                    Address = new Address()
-                    {
-                        Street = "198 Ashland Ave.",
-                        City = "Bloomfield",
-                        ZipCode = "07003"
-                    },
-                    Email = "y6602016@gmail.com"
-                }
-            });
+            .ReturnsAsync(UsersFixture.GetTestUsers());
         
         var sut = new UsersController(mockUsersService.Object);
 
